@@ -1,5 +1,5 @@
 name: barrage_video
-description: dy barrage video demo.
+description: mask barrage video demo.
 version: 1.0.0
 
 environment:
@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  event_bus: ^1.1.0
   video_player: ^1.0.1
 
 dev_dependencies:
@@ -19,4 +20,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-  - assets/phut_hon.mp4
+  - assets/yoona.mp4
+  - assets/mask.json

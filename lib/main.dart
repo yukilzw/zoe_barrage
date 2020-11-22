@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'barrage.dart';
@@ -10,8 +12,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   static final String _title = 'barrage vidoe';
-  static final GlobalKey<BarrageInitState> barrageKey = GlobalKey();
-  static final GlobalKey<VedioBgState> videoKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -22,30 +22,58 @@ class MyApp extends StatelessWidget {
           children: [
             Expanded(
               flex: 1,
-              child: Container(
-                color: Colors.black,
-                child: Stack(
-                  alignment: AlignmentDirectional.center,
-                  children: [
-                    VedioBg(
-                      key: videoKey,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 198),
-                      child: BarrageInit(key: barrageKey),
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          barrageKey.currentState.change();
-                          videoKey.currentState.change();
-                        },
-                        child: Container(color: Colors.transparent)),
-                  ],
-                ),
-              ),
+              child: Index()
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class Index extends StatelessWidget {
+  static final GlobalKey<BarrageInitState> barrageKey = GlobalKey();
+  static final GlobalKey<VedioBgState> videoKey = GlobalKey();
+
+  @override
+  Widget build(BuildContext context) {
+    num statusHeight = MediaQueryData.fromWindow(window).padding.top;
+    num videoHeight = MediaQuery.of(context).size.width * 16 / 9;
+
+    return Container(
+      color: Colors.black,
+      child: Stack(
+        alignment: AlignmentDirectional.topCenter,
+        children: [
+          
+          Positioned(
+            top: statusHeight,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: videoHeight,
+              child: VedioBg(
+                key: videoKey,
+              ),
+            ),
+          ),
+          Positioned(
+            top: statusHeight,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: videoHeight,
+              child: BarrageInit(
+                key: barrageKey
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              barrageKey.currentState.change();
+              videoKey.currentState.change();
+            },
+            child: Container(color: Colors.transparent)
+          ),
+        ],
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'event.dart';
 
 class VedioBg extends StatefulWidget {
   const VedioBg({Key key}) : super(key: key);
@@ -14,6 +15,7 @@ class VedioBgState extends State<VedioBg> {
   VideoPlayerController _controller;
   Future _initializeVideoPlayerFuture;
   bool _playing;
+  num inMilliseconds;
 
   void change() {
     if (_playing) {
@@ -26,17 +28,20 @@ class VedioBgState extends State<VedioBg> {
   @override
   void initState() {
       super.initState();
-      _controller = VideoPlayerController.asset('assets/phut_hon.mp4')
+      _controller = VideoPlayerController.asset('assets/yoona.mp4')
       ..setLooping(true)
-      // 播放状态
       ..addListener(() {
           final bool isPlaying = _controller.value.isPlaying;
+          var nowMilliseconds = _controller.value.position.inMilliseconds;
+          if (inMilliseconds != nowMilliseconds) {
+            inMilliseconds = nowMilliseconds;
+            var splitTime = (nowMilliseconds / 500).round() * 500;
+            eventBus.fire(ChangeMaskEvent(splitTime.toString())); 
+          }
           _playing = isPlaying;
       });
-      // 在初始化完成后必须更新界面
-      _initializeVideoPlayerFuture = _controller.initialize().then((_) {
-          // setState(() {});
-      });
+
+      _initializeVideoPlayerFuture = _controller.initialize().then((_) { });
       _controller.play();
   }
 
@@ -56,8 +61,7 @@ class VedioBgState extends State<VedioBg> {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           return AspectRatio(
-            // aspectRatio: 16 / 9,
-            aspectRatio: _controller.value.aspectRatio,
+            aspectRatio: _controller.value.aspectRatio,   // 16 / 9,
             child: VideoPlayer(_controller),
           );
         } else {

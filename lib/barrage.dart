@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'mock.dart';
 import 'core.dart';
+import 'event.dart';
 
 class BarrageInit extends StatefulWidget {
   const BarrageInit({ Key key }) : super(key: key);
@@ -18,14 +20,28 @@ class BarrageInitState extends State<BarrageInit> {
   Timer _timer;
   bool isPlaying = false;
 
+  List<dynamic> maskCfg;
+
   @override
   void initState() {
     super.initState();
     _controller = BarrageWallController.all(
       options: ChannelOptions(height: 24.0),
-      channelCount: 13,
+      channelCount: 17,
     );
     barrageDatas = BarrageData();
+
+    Future<String> loadString = DefaultAssetBundle.of(context).loadString("assets/mask.json");
+
+    loadString.then((String value){
+      var cfg = json.decode(value);
+      eventBus.on<ChangeMaskEvent>().listen((event) {
+        print(event.time);
+        setState((){
+          maskCfg = cfg[event.time];
+        });
+      });
+    });
     change();
   }
 
@@ -42,9 +58,9 @@ class BarrageInitState extends State<BarrageInit> {
 
     if (isPlaying) {
       _controller.play();
-      // 每间隔 300 毫秒添加一条弹幕
+      // 投放弹幕CD时间
       _timer = Timer.periodic(
-          const Duration(milliseconds: 300), (_) => _addBarrage());
+          const Duration(milliseconds: 170), (_) => _addBarrage());
     } else {
       _controller.pause();
       _timer.cancel();
@@ -79,14 +95,41 @@ class BarrageInitState extends State<BarrageInit> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Container(
-          child: _controller.buildView(),
-        ),
-      ],
+    num scale = MediaQuery.of(context).size.width / 720;
+    return ClipPath(
+      clipper: maskCfg != null ? TrianglePath(maskCfg, scale) : null,
+      child: Container(
+        color: Colors.transparent,
+        child: _controller.buildView(),
+      ),
     );
   }
 }
 
+class TrianglePath extends CustomClipper<Path>{
+  List<dynamic> maskCfg;
+  num scale;
+
+  TrianglePath(this.maskCfg, this.scale);
+
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    maskCfg.forEach((maskEach) {
+      for(var i = 0; i < maskEach.length; i++) {
+        if (i == 0) {
+          path.moveTo(maskEach[i][0] * scale, maskEach[i][1] * scale);
+        } else {
+          path.lineTo(maskEach[i][0] * scale, maskEach[i][1] * scale);
+        }
+      }
+    });
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return true;
+  }
+}
