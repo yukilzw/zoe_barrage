@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'barrage.dart';
 import 'video.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+}
 
 class MyApp extends StatelessWidget {
   static final String _title = 'barrage vidoe';
@@ -28,23 +32,18 @@ class MyApp extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(bottom: 198),
-                      child:  BarrageInit(
-                        key: barrageKey
-                      ),
+                      child: BarrageInit(key: barrageKey),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        barrageKey.currentState.change();
-                        videoKey.currentState.change();
-                      },
-                      child: Container(
-                        color: Colors.transparent
-                      )
-                    ),
+                        onTap: () {
+                          barrageKey.currentState.change();
+                          videoKey.currentState.change();
+                        },
+                        child: Container(color: Colors.transparent)),
                   ],
                 ),
               ),
-            ),                                      
+            ),
           ],
         ),
       ),
