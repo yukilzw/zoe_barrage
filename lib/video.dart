@@ -26,7 +26,7 @@ class VedioBgState extends State<VedioBg> {
   @override
   void initState() {
       super.initState();
-      _controller = VideoPlayerController.asset('assets/phuthon.mp4')
+      _controller = VideoPlayerController.asset('assets/phut_hon.mp4')
       ..setLooping(true)
       // 播放状态
       ..addListener(() {
@@ -51,8 +51,9 @@ class VedioBgState extends State<VedioBg> {
     return FutureBuilder(
       future: _initializeVideoPlayerFuture,
       builder: (context, snapshot) {
-        print(snapshot.connectionState);
-        if (snapshot.hasError) print(snapshot.error);
+        if (snapshot.hasError) {
+          print(snapshot.error);
+        }
         if (snapshot.connectionState == ConnectionState.done) {
           return AspectRatio(
             // aspectRatio: 16 / 9,

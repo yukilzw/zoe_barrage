@@ -52,10 +52,6 @@ class BarrageInitState extends State<BarrageInit> {
   }
 
   int _addBarrage() {
-    print(BarrageData);
-    print(barrageDatas.randomIcon);
-    print(12);
-    print(454);
     Widget content = Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
