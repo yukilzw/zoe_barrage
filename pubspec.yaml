@@ -20,5 +20,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-  - assets/yoona.mp4
+  - assets/live.mp4
   - assets/mask.json

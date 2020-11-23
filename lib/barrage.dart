@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'mock.dart';
@@ -8,7 +7,8 @@ import 'core.dart';
 import 'event.dart';
 
 class BarrageInit extends StatefulWidget {
-  const BarrageInit({ Key key }) : super(key: key);
+  final Map cfg;
+  const BarrageInit({Key key, this.cfg}) : super(key: key);
 
   @override
   BarrageInitState createState() => BarrageInitState();
@@ -19,8 +19,7 @@ class BarrageInitState extends State<BarrageInit> {
   BarrageData barrageDatas;
   Timer _timer;
   bool isPlaying = false;
-
-  List<dynamic> maskCfg;
+  List maskCfg;
 
   @override
   void initState() {
@@ -31,15 +30,12 @@ class BarrageInitState extends State<BarrageInit> {
     );
     barrageDatas = BarrageData();
 
-    Future<String> loadString = DefaultAssetBundle.of(context).loadString("assets/mask.json");
-
-    loadString.then((String value){
-      var cfg = json.decode(value);
-      eventBus.on<ChangeMaskEvent>().listen((event) {
+    eventBus.on<ChangeMaskEvent>().listen((event) {
+      if (widget.cfg[event.time] == null) {
         print(event.time);
-        setState((){
-          maskCfg = cfg[event.time];
-        });
+      }
+      setState(() {
+        maskCfg = widget.cfg[event.time];
       });
     });
     change();
@@ -106,7 +102,7 @@ class BarrageInitState extends State<BarrageInit> {
   }
 }
 
-class TrianglePath extends CustomClipper<Path>{
+class TrianglePath extends CustomClipper<Path> {
   List<dynamic> maskCfg;
   num scale;
 
@@ -116,7 +112,7 @@ class TrianglePath extends CustomClipper<Path>{
   Path getClip(Size size) {
     var path = Path();
     maskCfg.forEach((maskEach) {
-      for(var i = 0; i < maskEach.length; i++) {
+      for (var i = 0; i < maskEach.length; i++) {
         if (i == 0) {
           path.moveTo(maskEach[i][0] * scale, maskEach[i][1] * scale);
         } else {

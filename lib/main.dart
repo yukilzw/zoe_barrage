@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,10 +21,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Column(
           children: [
-            Expanded(
-              flex: 1,
-              child: Index()
-            ),
+            Expanded(flex: 1, child: Index()),
           ],
         ),
       ),
@@ -31,9 +29,31 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Index extends StatelessWidget {
+class Index extends StatefulWidget {
+  const Index({Key key}) : super(key: key);
+
+  @override
+  IndexState createState() => IndexState();
+}
+
+class IndexState extends State<Index> {
   static final GlobalKey<BarrageInitState> barrageKey = GlobalKey();
   static final GlobalKey<VedioBgState> videoKey = GlobalKey();
+
+  Map cfg;
+
+  @override
+  void initState() {
+    super.initState();
+    Future<String> loadString =
+        DefaultAssetBundle.of(context).loadString("assets/mask.json");
+
+    loadString.then((String value) {
+      setState(() {
+        cfg = json.decode(value);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,39 +62,42 @@ class Index extends StatelessWidget {
 
     return Container(
       color: Colors.black,
-      child: Stack(
-        alignment: AlignmentDirectional.topCenter,
-        children: [
-          
-          Positioned(
-            top: statusHeight,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: videoHeight,
-              child: VedioBg(
-                key: videoKey,
-              ),
+      child: cfg == null
+          ? SizedBox()
+          : Stack(
+              alignment: AlignmentDirectional.topCenter,
+              children: [
+                Positioned(
+                  top: statusHeight,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: videoHeight,
+                    child: VedioBg(
+                      key: videoKey,
+                      cfg: cfg,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: statusHeight,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: videoHeight,
+                    child: BarrageInit(
+                      key: barrageKey,
+                      cfg: cfg,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    barrageKey.currentState.change();
+                    videoKey.currentState.change();
+                  },
+                  child: Container(color: Colors.transparent),
+                ),
+              ],
             ),
-          ),
-          Positioned(
-            top: statusHeight,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: videoHeight,
-              child: BarrageInit(
-                key: barrageKey
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              barrageKey.currentState.change();
-              videoKey.currentState.change();
-            },
-            child: Container(color: Colors.transparent)
-          ),
-        ],
-      ),
     );
   }
 }

@@ -5,7 +5,8 @@ import 'package:video_player/video_player.dart';
 import 'event.dart';
 
 class VedioBg extends StatefulWidget {
-  const VedioBg({Key key}) : super(key: key);
+  final Map cfg;
+  const VedioBg({Key key, this.cfg}) : super(key: key);
 
   @override
   VedioBgState createState() => VedioBgState();
@@ -15,7 +16,10 @@ class VedioBgState extends State<VedioBg> {
   VideoPlayerController _controller;
   Future _initializeVideoPlayerFuture;
   bool _playing;
-  num inMilliseconds;
+  num inMilliseconds = 0;
+  Timer timer;
+  int timerCount = 0;
+  int plusmill = 0;
 
   void change() {
     if (_playing) {
@@ -27,29 +31,52 @@ class VedioBgState extends State<VedioBg> {
 
   @override
   void initState() {
-      super.initState();
-      _controller = VideoPlayerController.asset('assets/yoona.mp4')
+    super.initState();
+    _controller = VideoPlayerController.asset('assets/live.mp4')
       ..setLooping(true)
       ..addListener(() {
-          final bool isPlaying = _controller.value.isPlaying;
-          var nowMilliseconds = _controller.value.position.inMilliseconds;
-          if (inMilliseconds != nowMilliseconds) {
-            inMilliseconds = nowMilliseconds;
-            var splitTime = (nowMilliseconds / 500).round() * 500;
-            eventBus.fire(ChangeMaskEvent(splitTime.toString())); 
-          }
-          _playing = isPlaying;
+        final bool isPlaying = _controller.value.isPlaying;
+        print(isPlaying);
+        // var nowMilliseconds = _controller.value.position.inMilliseconds;
+        // if (inMilliseconds != nowMilliseconds) {
+        //   timer?.cancel();
+        //   inMilliseconds = nowMilliseconds;
+        //   var splitTime = (nowMilliseconds / 50).round() * 50;
+        //   eventBus.fire(ChangeMaskEvent(splitTime.toString()));
+
+        //   var stepsTime = 0;
+        //   var timeDuration = 16;
+        //   timer = Timer.periodic(Duration(milliseconds: timeDuration), (timer) {
+        //     stepsTime += timeDuration;
+        //     nowMilliseconds += stepsTime;
+        //     var splitTime = (nowMilliseconds / 50).round() * 50;
+        //     eventBus.fire(ChangeMaskEvent(splitTime.toString()));
+        //   });
+        // }
+        var nowMilliseconds = _controller.value.position.inMilliseconds;
+        if ((inMilliseconds == 0 && nowMilliseconds > 0) ||
+            nowMilliseconds < inMilliseconds) {
+          timer?.cancel();
+          var stepsTime = (nowMilliseconds / 50).round() * 50;
+          timer = Timer.periodic(Duration(milliseconds: 50), (timer) {
+            stepsTime += 50;
+            eventBus.fire(ChangeMaskEvent(stepsTime.toString()));
+          });
+        }
+        inMilliseconds = nowMilliseconds;
+        _playing = isPlaying;
       });
 
-      _initializeVideoPlayerFuture = _controller.initialize().then((_) { });
-      _controller.play();
+    _initializeVideoPlayerFuture = _controller.initialize().then((_) {});
+    _controller.play();
   }
 
-   @override
-    void dispose() {
-      _controller.dispose();
-      super.dispose();
-    }
+  @override
+  void dispose() {
+    _controller.dispose();
+    timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +88,7 @@ class VedioBgState extends State<VedioBg> {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           return AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,   // 16 / 9,
+            aspectRatio: _controller.value.aspectRatio, // 16 / 9,
             child: VideoPlayer(_controller),
           );
         } else {
