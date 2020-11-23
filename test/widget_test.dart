@@ -8,6 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:barrage_video/main.dart';
+import 'package:mask_barrage/main.dart';
 
 void main() {}
