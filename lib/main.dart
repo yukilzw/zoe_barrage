@@ -36,7 +36,7 @@ class Index extends StatefulWidget {
   IndexState createState() => IndexState();
 }
 
-class IndexState extends State<Index> {
+class IndexState extends State<Index> with WidgetsBindingObserver {
   static final GlobalKey<BarrageInitState> barrageKey = GlobalKey();
   static final GlobalKey<VedioBgState> videoKey = GlobalKey();
 
@@ -45,6 +45,7 @@ class IndexState extends State<Index> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     Future<String> loadString =
         DefaultAssetBundle.of(context).loadString("py/mask.json");
 
@@ -53,6 +54,22 @@ class IndexState extends State<Index> {
         cfg = json.decode(value);
       });
     });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.paused:
+        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        break;
+      default: break;
+    }
   }
 
   @override
