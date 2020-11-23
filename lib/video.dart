@@ -32,27 +32,10 @@ class VedioBgState extends State<VedioBg> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset('assets/live.mp4')
+    _controller = VideoPlayerController.asset('py/live.mp4')
       ..setLooping(true)
       ..addListener(() {
         final bool isPlaying = _controller.value.isPlaying;
-        print(isPlaying);
-        // var nowMilliseconds = _controller.value.position.inMilliseconds;
-        // if (inMilliseconds != nowMilliseconds) {
-        //   timer?.cancel();
-        //   inMilliseconds = nowMilliseconds;
-        //   var splitTime = (nowMilliseconds / 50).round() * 50;
-        //   eventBus.fire(ChangeMaskEvent(splitTime.toString()));
-
-        //   var stepsTime = 0;
-        //   var timeDuration = 16;
-        //   timer = Timer.periodic(Duration(milliseconds: timeDuration), (timer) {
-        //     stepsTime += timeDuration;
-        //     nowMilliseconds += stepsTime;
-        //     var splitTime = (nowMilliseconds / 50).round() * 50;
-        //     eventBus.fire(ChangeMaskEvent(splitTime.toString()));
-        //   });
-        // }
         var nowMilliseconds = _controller.value.position.inMilliseconds;
         if ((inMilliseconds == 0 && nowMilliseconds > 0) ||
             nowMilliseconds < inMilliseconds) {

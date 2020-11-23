@@ -1,5 +1,5 @@
-name: barrage_video
-description: mask barrage video demo.
+name: mask_barrage
+description: AI mask barrage video show.
 version: 1.0.0
 
 environment:
@@ -20,5 +20,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-  - assets/live.mp4
-  - assets/mask.json
+  - py/live.mp4
+  - py/mask.json

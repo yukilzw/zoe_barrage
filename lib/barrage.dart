@@ -26,14 +26,11 @@ class BarrageInitState extends State<BarrageInit> {
     super.initState();
     _controller = BarrageWallController.all(
       options: ChannelOptions(height: 24.0),
-      channelCount: 17,
+      channelCount: 25,
     );
     barrageDatas = BarrageData();
 
     eventBus.on<ChangeMaskEvent>().listen((event) {
-      if (widget.cfg[event.time] == null) {
-        print(event.time);
-      }
       setState(() {
         maskCfg = widget.cfg[event.time];
       });
@@ -56,7 +53,7 @@ class BarrageInitState extends State<BarrageInit> {
       _controller.play();
       // 投放弹幕CD时间
       _timer = Timer.periodic(
-          const Duration(milliseconds: 170), (_) => _addBarrage());
+          const Duration(milliseconds: 100), (_) => _addBarrage());
     } else {
       _controller.pause();
       _timer.cancel();

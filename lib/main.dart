@@ -12,7 +12,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  static final String _title = 'barrage vidoe';
+  static final String _title = 'mask barrage';
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class IndexState extends State<Index> {
   void initState() {
     super.initState();
     Future<String> loadString =
-        DefaultAssetBundle.of(context).loadString("assets/mask.json");
+        DefaultAssetBundle.of(context).loadString("py/mask.json");
 
     loadString.then((String value) {
       setState(() {
@@ -89,13 +89,13 @@ class IndexState extends State<Index> {
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    barrageKey.currentState.change();
-                    videoKey.currentState.change();
-                  },
-                  child: Container(color: Colors.transparent),
-                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     barrageKey.currentState.change();
+                //     videoKey.currentState.change();
+                //   },
+                //   child: Container(color: Colors.transparent),
+                // ),
               ],
             ),
     );
