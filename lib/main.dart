@@ -47,7 +47,7 @@ class IndexState extends State<Index> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     Future<String> loadString =
-        DefaultAssetBundle.of(context).loadString("py/mask.json");
+        DefaultAssetBundle.of(context).loadString("py/mask_data.json");
 
     loadString.then((String value) {
       setState(() {

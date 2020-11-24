@@ -17,7 +17,7 @@ if os.path.exists(clip_path):
     shutil.rmtree(clip_path)
 os.makedirs(clip_path)
 
-# 递归调用Face++图像识别类
+# 图像识别类
 class multiple_req:
     reqTimes = 0
     data = {
@@ -36,13 +36,11 @@ class multiple_req:
         response = requests.post('https://api-cn.faceplusplus.com/humanbodypp/v2/segment', data=self.data, files=files)
         res_data = json.loads(response.text)
 
-        # face++免费的API key很大概率被限流返回失败，所以我们递归调用（设个CD），一直等这个图片成功识别后再切到下一张图片
+        # face++免费的API key很大概率被限流返回失败，所以我们递归调用，一直等这个图片成功识别后再切到下一张图片
         if 'error_message' in res_data:
             # 记录一下被限流失败的次数 :) 真的很多次
             self.reqTimes += 1
             print(self.filename +' fail times:' + str(self.reqTimes))
-            # 等200ms继续对这个图片发起识别
-            time.sleep(.2)
             return self.reqfaceplus()
         else:
             # 识别成功返回结果
@@ -73,7 +71,7 @@ image_list_sort = sorted(image_list, key=lambda name: int(re.sub(r'\D', '', name
 for n in image_list_sort:
     '''
     为每帧图片起一个单独的线程来递归调用，达到并行效果。所有图片被识别保存完毕后退出主进程，此过程需要几分钟。
-    （这里每个线程中都是不断地递归网络请求、挂起等待、IO写入，不占用CPU，不用考虑GIL）
+    （这里每个线程中都是不断地递归网络请求、挂起等待、IO写入，不占用CPU）
     '''
     t = threading.Thread(target=thread_req, name=n, args=[n])
     t.start()

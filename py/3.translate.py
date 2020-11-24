@@ -7,14 +7,19 @@ import re
 import cv2
 
 dirPath = os.path.dirname(os.path.abspath(__file__))
-
-milli_seconds = 50                  # 初始帧时间
-milli_seconds_plus = milli_seconds  # 每次递增一帧的增加时间
-config = {}                         # 最后要存入的json配置
+cap = cv2.VideoCapture(dirPath + '/live.mp4')
+frame_width = cap.get(cv2.CAP_PROP_FRAME_WIDTH) # 分辨率（宽）
+FPS = round(cap.get(cv2.CAP_PROP_FPS), 0)   # 视频FPS
+mask_cd = int(1000 / FPS * 3)      # 初始帧时间
+milli_seconds_plus = mask_cd  # 每次递增一帧的增加时间
+config = {                          # 最后要存入的json配置
+    'mask_cd': mask_cd,
+    'frame_width': frame_width
+}
 
 # 输出灰度图与轮廓坐标集合
 def output_clip(filename):
-    global milli_seconds
+    global mask_cd
     # 读取原图（这里我们原图就已经是灰度图了）
     img = cv2.imread(dirPath + '/clip/' + filename)
     # 转换成灰度图（openCV必须要转换一次才能喂给下一层）
@@ -40,12 +45,12 @@ def output_clip(filename):
                 # 将np.ndarray转为list，不然后面JSON序列化解析不了
                 clip.append(item[i, 0].tolist())
 
-    millisecondsStr = str(milli_seconds)
+    millisecondsStr = str(mask_cd)
     # 将每一个轮廓信息保存到key为帧所对应时间的list
     config[millisecondsStr] = clip_list
 
     print(filename + ' time(' + millisecondsStr +') data.')
-    milli_seconds += milli_seconds_plus
+    mask_cd += milli_seconds_plus
 
 # 列举刚才算法返回的灰度图
 clipFrame = []
@@ -62,7 +67,7 @@ for name in clipFrameSort:
 # 全部坐标提取完成后写成json提供给flutter
 jsObj = json.dumps(config)
 
-fileObject = open(dirPath + '/mask.json', 'w')
+fileObject = open(dirPath + '/mask_data.json', 'w')
 fileObject.write(jsObj)
 fileObject.close()
 

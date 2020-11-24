@@ -18,8 +18,6 @@ class VedioBgState extends State<VedioBg> {
   bool _playing;
   num inMilliseconds = 0;
   Timer timer;
-  int timerCount = 0;
-  int plusmill = 0;
 
   void change() {
     if (_playing) {
@@ -32,17 +30,18 @@ class VedioBgState extends State<VedioBg> {
   @override
   void initState() {
     super.initState();
+    int cd = widget.cfg['mask_cd'];
     _controller = VideoPlayerController.asset('py/live.mp4')
       ..setLooping(true)
       ..addListener(() {
         final bool isPlaying = _controller.value.isPlaying;
-        var nowMilliseconds = _controller.value.position.inMilliseconds;
+        final int nowMilliseconds = _controller.value.position.inMilliseconds;
         if ((inMilliseconds == 0 && nowMilliseconds > 0) ||
             nowMilliseconds < inMilliseconds) {
           timer?.cancel();
-          var stepsTime = (nowMilliseconds / 50).round() * 50;
-          timer = Timer.periodic(Duration(milliseconds: 50), (timer) {
-            stepsTime += 50;
+          int stepsTime = (nowMilliseconds / cd).round() * cd;
+          timer = Timer.periodic(Duration(milliseconds: cd), (timer) {
+            stepsTime += cd;
             eventBus.fire(ChangeMaskEvent(stepsTime.toString()));
           });
         }

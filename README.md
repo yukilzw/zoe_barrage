@@ -1,8 +1,8 @@
 ### Flutter AI智能弹幕来袭~
 ![Flutter](https://img.shields.io/badge/Flutter-1.22-52c6f9.svg) ![android](https://img.shields.io/badge/android✔-brightgreen.svg) ![ios](https://img.shields.io/badge/ios✔-green.svg)
 
-`flutter run --release`可体验效果<br/>
-`/py`路径下包含视频帧处理源码，处理后的结果已导出`mask.json`，flutter构建时会打包进去<br/>
+`flutter run --release`运行体验<br/>
+`/py`路径下包含视频帧处理源码，处理后的结果已导出`mask_data.json`，flutter构建时会打包进去<br/>
 
 #### 效果截图
 <table>

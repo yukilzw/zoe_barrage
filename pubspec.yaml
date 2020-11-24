@@ -21,4 +21,4 @@ flutter:
   uses-material-design: true
   assets:
   - py/live.mp4
-  - py/mask.json
+  - py/mask_data.json

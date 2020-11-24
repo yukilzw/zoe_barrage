@@ -19,7 +19,7 @@ class BarrageInitState extends State<BarrageInit> {
   BarrageData barrageDatas;
   Timer _timer;
   bool isPlaying = false;
-  List maskCfg;
+  List curMaskData;
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class BarrageInitState extends State<BarrageInit> {
 
     eventBus.on<ChangeMaskEvent>().listen((event) {
       setState(() {
-        maskCfg = widget.cfg[event.time];
+        curMaskData = widget.cfg[event.time];
       });
     });
     change();
@@ -88,9 +88,9 @@ class BarrageInitState extends State<BarrageInit> {
 
   @override
   Widget build(BuildContext context) {
-    num scale = MediaQuery.of(context).size.width / 720;
+    num scale = MediaQuery.of(context).size.width / widget.cfg['frame_width'];
     return ClipPath(
-      clipper: maskCfg != null ? TrianglePath(maskCfg, scale) : null,
+      clipper: curMaskData != null ? TrianglePath(curMaskData, scale) : null,
       child: Container(
         color: Colors.transparent,
         child: _controller.buildView(),
@@ -100,15 +100,15 @@ class BarrageInitState extends State<BarrageInit> {
 }
 
 class TrianglePath extends CustomClipper<Path> {
-  List<dynamic> maskCfg;
+  List<dynamic> curMaskData;
   num scale;
 
-  TrianglePath(this.maskCfg, this.scale);
+  TrianglePath(this.curMaskData, this.scale);
 
   @override
   Path getClip(Size size) {
     var path = Path();
-    maskCfg.forEach((maskEach) {
+    curMaskData.forEach((maskEach) {
       for (var i = 0; i < maskEach.length; i++) {
         if (i == 0) {
           path.moveTo(maskEach[i][0] * scale, maskEach[i][1] * scale);
