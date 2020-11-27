@@ -111,9 +111,7 @@ class _BarrageState extends State<Barrage> with TickerProviderStateMixin {
     _playPauseState = _PlayPauseState(barrageController)
       ..init()
       ..addListener(() {
-        _playPauseState.isPlaying
-            ? _animationController.forward()
-            : _animationController.stop(canceled: false);
+        _playPauseState.isPlaying ? _animationController.forward() : _animationController.stop(canceled: false);
       });
 
     if (_playPauseState.isPlaying) {
@@ -238,8 +236,7 @@ enum ChannelDirection {
 }
 
 /// 控制单条弹道
-class ChannelController
-    extends ValueNotifier<Map<BarrageItem, BarrageController>> {
+class ChannelController extends ValueNotifier<Map<BarrageItem, BarrageController>> {
   ChannelController(this.options)
       : assert(options != null),
         super(const <BarrageItem, BarrageController>{});
@@ -379,8 +376,7 @@ class _BarrageChannelState extends State<BarrageChannel> {
     super.deactivate();
   }
 
-  List<Widget> get _barrages =>
-      _controller.value.values.map((e) => Barrage(e)).toList();
+  List<Widget> get _barrages => _controller.value.values.map((e) => Barrage(e)).toList();
 
   @override
   Widget build(BuildContext context) {
@@ -410,8 +406,7 @@ class BarrageWall extends StatelessWidget {
 class BarrageWallController {
   BarrageWallController.options(List<ChannelOptions> options)
       : assert(options != null),
-        _channels =
-            options.map((e) => ChannelController(e)).toList(growable: false);
+        _channels = options.map((e) => ChannelController(e)).toList(growable: false);
 
   BarrageWallController.all({
     @required ChannelOptions options,
@@ -444,8 +439,7 @@ class BarrageWallController {
 
     ChannelController result;
     for (final channel in _channels) {
-      if (result == null ||
-          channel.lastItemScrollRate > result.lastItemScrollRate) {
+      if (result == null || channel.lastItemScrollRate > result.lastItemScrollRate) {
         result = channel;
       }
     }
@@ -457,8 +451,7 @@ class BarrageWallController {
     assert(index >= 0);
     assert(() {
       if (index >= _channels.length) {
-        throw RangeError.index(
-            index, _channels, "index", null, _channels.length);
+        throw RangeError.index(index, _channels, "index", null, _channels.length);
       }
       return true;
     }());
@@ -536,8 +529,7 @@ class BarrageWallController {
     });
   }*/
 
-  List<Widget> get _barrageChannels =>
-      _channels.map((e) => BarrageChannel(e)).toList();
+  List<Widget> get _barrageChannels => _channels.map((e) => BarrageChannel(e)).toList();
 
   Widget buildView() {
     return Column(

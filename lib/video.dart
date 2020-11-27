@@ -31,13 +31,12 @@ class VedioBgState extends State<VedioBg> {
   void initState() {
     super.initState();
     int cd = widget.cfg['mask_cd'];
-    _controller = VideoPlayerController.asset('py/live.mp4')
+    _controller = VideoPlayerController.asset('py/iu.mp4')
       ..setLooping(true)
       ..addListener(() {
         final bool isPlaying = _controller.value.isPlaying;
         final int nowMilliseconds = _controller.value.position.inMilliseconds;
-        if ((inMilliseconds == 0 && nowMilliseconds > 0) ||
-            nowMilliseconds < inMilliseconds) {
+        if ((inMilliseconds == 0 && nowMilliseconds > 0) || nowMilliseconds < inMilliseconds) {
           timer?.cancel();
           int stepsTime = (nowMilliseconds / cd).round() * cd;
           timer = Timer.periodic(Duration(milliseconds: cd), (timer) {
@@ -70,13 +69,11 @@ class VedioBgState extends State<VedioBg> {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           return AspectRatio(
-            aspectRatio: _controller.value.aspectRatio, // 16 / 9,
+            aspectRatio: _controller.value.aspectRatio,
             child: VideoPlayer(_controller),
           );
         } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return Center();
         }
       },
     );

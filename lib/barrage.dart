@@ -52,8 +52,7 @@ class BarrageInitState extends State<BarrageInit> {
     if (isPlaying) {
       _controller.play();
       // 投放弹幕CD时间
-      _timer = Timer.periodic(
-          const Duration(milliseconds: 100), (_) => _addBarrage());
+      _timer = Timer.periodic(const Duration(milliseconds: 100), (_) => _addBarrage());
     } else {
       _controller.pause();
       _timer.cancel();

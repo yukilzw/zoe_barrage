@@ -20,5 +20,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-  - py/live.mp4
-  - py/mask_data.json
+  - py/iu.mp4
+  - py/mask_iu.json

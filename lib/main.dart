@@ -46,8 +46,7 @@ class IndexState extends State<Index> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    Future<String> loadString =
-        DefaultAssetBundle.of(context).loadString("py/mask_data.json");
+    Future<String> loadString = DefaultAssetBundle.of(context).loadString("py/mask_iu.json");
 
     loadString.then((String value) {
       setState(() {
@@ -68,53 +67,61 @@ class IndexState extends State<Index> with WidgetsBindingObserver {
       case AppLifecycleState.paused:
         SystemChannels.platform.invokeMethod('SystemNavigator.pop');
         break;
-      default: break;
+      default:
+        break;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    num statusHeight = MediaQueryData.fromWindow(window).padding.top;
-    num videoHeight = MediaQuery.of(context).size.width * 16 / 9;
+    Widget render;
+    if (cfg == null) {
+      render = Center(
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Color.fromARGB(255, 255, 230, 15)),
+        ),
+      );
+    } else {
+      num statusHeight = MediaQueryData.fromWindow(window).padding.top;
+      num videoHeight = MediaQuery.of(context).size.width * cfg['frame_height'] / cfg['frame_width'];
+      num marginTop = (MediaQuery.of(context).size.height - statusHeight - videoHeight) / 2 + statusHeight;
 
-    return Container(
-      color: Colors.black,
-      child: cfg == null
-          ? SizedBox()
-          : Stack(
-              alignment: AlignmentDirectional.topCenter,
-              children: [
-                Positioned(
-                  top: statusHeight,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: videoHeight,
-                    child: VedioBg(
-                      key: videoKey,
-                      cfg: cfg,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: statusHeight,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: videoHeight,
-                    child: BarrageInit(
-                      key: barrageKey,
-                      cfg: cfg,
-                    ),
-                  ),
-                ),
-                // GestureDetector(
-                //   onTap: () {
-                //     barrageKey.currentState.change();
-                //     videoKey.currentState.change();
-                //   },
-                //   child: Container(color: Colors.transparent),
-                // ),
-              ],
+      render = Stack(
+        alignment: AlignmentDirectional.topCenter,
+        children: [
+          Positioned(
+            top: marginTop,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: videoHeight,
+              child: VedioBg(
+                key: videoKey,
+                cfg: cfg,
+              ),
             ),
-    );
+          ),
+          Positioned(
+            top: marginTop,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: videoHeight,
+              child: BarrageInit(
+                key: barrageKey,
+                cfg: cfg,
+              ),
+            ),
+          ),
+          // GestureDetector(
+          //   onTap: () {
+          //     barrageKey.currentState.change();
+          //     videoKey.currentState.change();
+          //   },
+          //   child: Container(color: Colors.transparent),
+          // ),
+        ],
+      );
+    }
+
+    return Container(color: Colors.black, child: render);
   }
 }

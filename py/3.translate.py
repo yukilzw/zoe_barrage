@@ -4,24 +4,33 @@
 import os
 import json
 import re
+import shutil
 import cv2
+import config
 
 dirPath = os.path.dirname(os.path.abspath(__file__))
-cap = cv2.VideoCapture(dirPath + '/live.mp4')
+clip_path = os.path.join(dirPath, 'mask')
+cap = cv2.VideoCapture(os.path.join(dirPath, config.VIDEO_NAME))
 frame_width = cap.get(cv2.CAP_PROP_FRAME_WIDTH) # 分辨率（宽）
+frame_height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT) # 分辨率（高）
 FPS = round(cap.get(cv2.CAP_PROP_FPS), 0)   # 视频FPS
-mask_cd = int(1000 / FPS * 3)      # 初始帧时间
+mask_cd = int(1000 / FPS * config.FRAME_CD)      # 初始帧时间
 milli_seconds_plus = mask_cd  # 每次递增一帧的增加时间
 config = {                          # 最后要存入的json配置
     'mask_cd': mask_cd,
-    'frame_width': frame_width
+    'frame_width': frame_width,
+    'frame_height': frame_height
 }
+
+if os.path.exists(clip_path):
+    shutil.rmtree(clip_path)
+os.makedirs(clip_path)
 
 # 输出灰度图与轮廓坐标集合
 def output_clip(filename):
     global mask_cd
     # 读取原图（这里我们原图就已经是灰度图了）
-    img = cv2.imread(dirPath + '/clip/' + filename)
+    img = cv2.imread(os.path.join(dirPath, 'clip', filename))
     # 转换成灰度图（openCV必须要转换一次才能喂给下一层）
     gray_in = cv2.cvtColor(img , cv2.COLOR_BGR2GRAY)
     # 反色变换，gray_in为一个三维矩阵，代表着灰度图的色值0～255，我们将黑白对调
@@ -29,7 +38,7 @@ def output_clip(filename):
     # 将灰度图转换为纯黑白图，要么是0要么是255，没有中间值
     _, binary = cv2.threshold(gray , 220 , 255 , cv2.THRESH_BINARY)
     # 保存黑白图做参考
-    cv2.imwrite(dirPath + '/clip/invert-' + filename, binary)
+    cv2.imwrite(clip_path + '/invert-' + filename, binary)
     # 从黑白图中识趣包围图形，形成轮廓数据
     contours, _ = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     # 解析轮廓数据存入缓存
@@ -67,7 +76,7 @@ for name in clipFrameSort:
 # 全部坐标提取完成后写成json提供给flutter
 jsObj = json.dumps(config)
 
-fileObject = open(dirPath + '/mask_data.json', 'w')
+fileObject = open(dirPath + '/mask_iu.json', 'w')
 fileObject.write(jsObj)
 fileObject.close()
 

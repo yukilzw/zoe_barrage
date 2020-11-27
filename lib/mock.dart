@@ -26,9 +26,9 @@ class BarrageData {
     "喜欢听你唱歌",
     "什么时候开演唱会呀",
     "그게 사랑 일지 도 몰라"
-    "missing you",
+        "missing you",
     "纳德鲁酒店~~",
-    "哇。。！！",
+    "哇。。😯！！",
     "嗓音超棒小姐姐",
     "人美歌甜"
   ];
@@ -43,7 +43,7 @@ class BarrageData {
 
   BarrageData() {
     int count = 0;
-    while(count < 9) {
+    while (count < 9) {
       _icons.add(Icon(Icons.favorite, color: Colors.transparent));
       count++;
     }
