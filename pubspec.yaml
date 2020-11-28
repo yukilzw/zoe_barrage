@@ -1,4 +1,4 @@
-name: mask_barrage
+name: zoe_barrage
 description: AI mask barrage video show.
 version: 1.0.0
 
@@ -20,5 +20,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-  - py/iu.mp4
-  - py/mask_iu.json
+  - py/source.mp4
+  - py/res.json

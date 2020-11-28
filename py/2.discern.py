@@ -28,9 +28,9 @@ class multiple_req:
 
     def __init__(self, filename):
         self.filename = filename
-    
+
     def once_again(self):
-        # 记录一下被限流失败的次数 :)
+        # 成功率大约10%，记录一下被限流失败的次数 :)
         self.reqTimes += 1
         print(self.filename +' fail times:' + str(self.reqTimes))
         return self.reqfaceplus()
@@ -44,14 +44,14 @@ class multiple_req:
                 'https://api-cn.faceplusplus.com/humanbodypp/v2/segment', data=self.data, files=files)
             res_data = json.loads(response.text)
 
-            # face++免费的API key很大概率被限流返回失败，所以我们递归调用，一直等这个图片成功识别后再切到下一张图片
+            # 免费的API 很大概率被限流返回失败，这里递归调用，一直到这个图片成功识别后返回
             if 'error_message' in res_data:
-                self.once_again()
+                return self.once_again()
             else:
                 # 识别成功返回结果
                 return res_data
         except requests.exceptions.RequestException as e:
-            self.once_again()
+            return self.once_again()
 
 # 多线程并行函数
 def thread_req(n):

@@ -32,7 +32,7 @@ class BarrageInitState extends State<BarrageInit> {
 
     eventBus.on<ChangeMaskEvent>().listen((event) {
       setState(() {
-        curMaskData = widget.cfg[event.time];
+        curMaskData = widget.cfg[event.time] ?? curMaskData;
       });
     });
     change();

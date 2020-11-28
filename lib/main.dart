@@ -6,9 +6,11 @@ import 'package:flutter/services.dart';
 import 'barrage.dart';
 import 'video.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -46,7 +48,7 @@ class IndexState extends State<Index> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    Future<String> loadString = DefaultAssetBundle.of(context).loadString("py/mask_iu.json");
+    Future<String> loadString = DefaultAssetBundle.of(context).loadString("py/res.json");
 
     loadString.then((String value) {
       setState(() {

@@ -1,8 +1,19 @@
 ### Flutter AI智能弹幕来袭~
-![Flutter](https://img.shields.io/badge/Flutter-1.22-52c6f9.svg) ![android](https://img.shields.io/badge/android✔-brightgreen.svg) ![ios](https://img.shields.io/badge/ios✔-green.svg)
+![flutter](https://img.shields.io/badge/flutter-1.22-52c6f9.svg) ![python](https://img.shields.io/badge/python-3.8-407daf.svg) ![android](https://img.shields.io/badge/android✔-brightgreen.svg) ![ios](https://img.shields.io/badge/ios✔-green.svg)
 
-`flutter run --release`运行体验<br/>
-`/py`路径下包含视频帧处理源码，处理后的结果已导出`json`文件，flutter构建时会打包进去<br/>
+`flutter run --release`离线运行体验<br/>
+
+`./py`路径下包含视频帧处理脚本源码，处理后的结果已导出`res.json`文件，flutter构建时会打包进去<br/>
+
+如果想预处理自己导入的视频（因为是离线演示，体积最好不要超过5M）：
+1. 确保本地有`python3.6+`环境
+2. 根目录下安装依赖`pip install -r ./py/requirements.txt -i https://mirrors.aliyun.com/pypi/simple`（国内请使用阿里云镜像，mac下请加`sudo`管理员前缀）
+3. 将视频放入`./py`目录，修改`config.py`中的`VIDEO_NAME`配置为你的视频文件名
+4. 根目录下依次运行脚本：
+  - `python ./py/1.frames.py`
+  - `python ./py/2.discern.py`
+  - `python ./py/3.translate.py`
+5. 最后打包前记得替换一下dart代码中的assets文件名
 
 #### 效果截图
 <table>

@@ -8,6 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mask_barrage/main.dart';
+import 'package:zoe_barrage/main.dart';
 
 void main() {}

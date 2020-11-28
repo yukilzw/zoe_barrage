@@ -16,7 +16,7 @@ frame_height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT) # 分辨率（高）
 FPS = round(cap.get(cv2.CAP_PROP_FPS), 0)   # 视频FPS
 mask_cd = int(1000 / FPS * config.FRAME_CD)      # 初始帧时间
 milli_seconds_plus = mask_cd  # 每次递增一帧的增加时间
-config = {                          # 最后要存入的json配置
+jsonTemp = {                          # 最后要存入的json配置
     'mask_cd': mask_cd,
     'frame_width': frame_width,
     'frame_height': frame_height
@@ -44,8 +44,7 @@ def output_clip(filename):
     # 解析轮廓数据存入缓存
     clip_list = []
     for item in contours:
-        # 轮廓包围面积小于100就抛弃
-        if item.size > 100:
+        if item.size > 0:
             # 每个轮廓是一个三维矩阵，shape为(n, 1, 2) ，n为构成这个面的坐标数量，1没什么意义，2代表两个坐标x和y
             rows, _, __ = item.shape
             clip = []
@@ -56,7 +55,7 @@ def output_clip(filename):
 
     millisecondsStr = str(mask_cd)
     # 将每一个轮廓信息保存到key为帧所对应时间的list
-    config[millisecondsStr] = clip_list
+    jsonTemp[millisecondsStr] = clip_list
 
     print(filename + ' time(' + millisecondsStr +') data.')
     mask_cd += milli_seconds_plus
@@ -74,9 +73,9 @@ for name in clipFrameSort:
     output_clip(name)
 
 # 全部坐标提取完成后写成json提供给flutter
-jsObj = json.dumps(config)
+jsObj = json.dumps(jsonTemp)
 
-fileObject = open(dirPath + '/mask_iu.json', 'w')
+fileObject = open(os.path.join(dirPath, 'res.json'), 'w')
 fileObject.write(jsObj)
 fileObject.close()
 

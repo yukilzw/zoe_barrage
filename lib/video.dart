@@ -31,7 +31,7 @@ class VedioBgState extends State<VedioBg> {
   void initState() {
     super.initState();
     int cd = widget.cfg['mask_cd'];
-    _controller = VideoPlayerController.asset('py/iu.mp4')
+    _controller = VideoPlayerController.asset('py/source.mp4')
       ..setLooping(true)
       ..addListener(() {
         final bool isPlaying = _controller.value.isPlaying;
