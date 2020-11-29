@@ -1,4 +1,4 @@
-<p align="center"><a href="#" target="_blank" rel="noopener noreferrer"><img width="125" src="http://r.photo.store.qq.com/psc?/V14dALyK4PrHuj/TmEUgtj9EK6.7V8ajmQrEKy7VajsOCFgjQH7rqAvNvwJDnYfDo5lhLXSf0A0.2Wep.NiTs2kUCvsQ8XqoTYUG2d.ZVP9v*YiDxK6SjeuwxI!/r" alt="Zoe barrage"></a></p>
+<p align="center"><a href="#" target="_blank" rel="noopener noreferrer"><img width="105" src="http://r.photo.store.qq.com/psc?/V14dALyK4PrHuj/TmEUgtj9EK6.7V8ajmQrEJjVNABJacrVJUfgSDskiqvyNC8.yNw6GHeAqOtYaJjfzIK.mW9H0QV3xdNFUbiEV.bzUGFq9lM3rOSiHpwJv4c!/r" alt="Zoe barrage"></a></p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/flutter-1.22-52c6f9.svg?sanitize=true" alt="Build Status">
@@ -24,7 +24,7 @@
   
 完整实现教程可见文章：<a href="https://www.jianshu.com/p/716ea7714b47" target="_blank">Flutter AI 智能弹幕播放器 — 简书·心动音符</a>
 
-#### APP效果预览
+### APP效果预览
 IPhone运行时录屏：<a href="https://www.bilibili.com/video/BV1Mp4y1z7ud" target="_blank">戳这里观看</a><br/>
 <img src="http://r.photo.store.qq.com/psc?/V14dALyK4PrHuj/TmEUgtj9EK6.7V8ajmQrEDPNK2CMseiaC90T2dhhO9lrkR49Z36HLgG5YLex5LL9gF4jvovk.hJp7opYTq0YgiI2ys7NwBdZwFPItV*nR8c!/r" alt="android & ios ScreenShot">
 <table>
