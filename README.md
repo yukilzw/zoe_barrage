@@ -26,17 +26,4 @@
 
 ### APP效果预览
 IPhone运行时录屏：<a href="https://www.bilibili.com/video/BV1Mp4y1z7ud" target="_blank">戳这里观看</a><br/>
-<img src="http://r.photo.store.qq.com/psc?/V14dALyK4PrHuj/TmEUgtj9EK6.7V8ajmQrEDPNK2CMseiaC90T2dhhO9lrkR49Z36HLgG5YLex5LL9gF4jvovk.hJp7opYTq0YgiI2ys7NwBdZwFPItV*nR8c!/r" alt="android & ios ScreenShot">
-<table>
-    <tr>
-        <td >
-          <img src="http://r.photo.store.qq.com/psc?/V14dALyK4PrHuj/TmEUgtj9EK6.7V8ajmQrENPJuk*SWGwtGl85IRDTqyo3oPYnOESVaA6SlDHLMFOVT7OPGwGnqRea.VRUGLKjiUMoSnWMOSX*7qYbJxKGQtk!/r" width="100%">
-        </td>
-        <td >
-          <img src="http://r.photo.store.qq.com/psc?/V14dALyK4PrHuj/TmEUgtj9EK6.7V8ajmQrEOUE90nZREmYHZZJPPg7SMJxy6qewT35ZW8tJ8jGJLzEDvDCpW6MHlp78gsAdXj6QaO2Y9FcDULSQ8u7.KOjKcM!/r" width="100%">
-        </td>
-        <td >
-          <img src="http://r.photo.store.qq.com/psc?/V14dALyK4PrHuj/TmEUgtj9EK6.7V8ajmQrEBIKuY7Uj6O0Po6l4zAzzz4cS0yvzyj9piGMHeEGOx*JlcSbKlShBccuRpt0fAgbwZztVZG4F4Ai47R8ex2VfTM!/r" width="100%">
-        </td>
-    </tr>
-</table>
+
