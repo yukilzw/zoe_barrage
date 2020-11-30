@@ -26,4 +26,17 @@
 
 ### APP效果预览
 IPhone运行时录屏：<a href="https://www.bilibili.com/video/BV1Mp4y1z7ud" target="_blank">戳这里观看</a><br/>
-
+<img src="http://m.qpic.cn/psc?/V14dALyK4PrHuj/bqQfVz5yrrGYSXMvKr.cqRWgP*JgXGKstMK3KwLgWZjVark8S3dUOrTMFksNBRdJgJ2OTAnRSgTlGsJSnsa4iRyx088Z9SnBw8dM5CK6mE4!/b&bo=iwLCAosCwgIDCSw!&rf=viewer_4&t=5" alt="android & ios ScreenShot">
+<table>
+    <tr>
+        <td >
+          <img src="http://m.qpic.cn/psc?/V14dALyK4PrHuj/TmEUgtj9EK6.7V8ajmQrEOUE90nZREmYHZZJPPg7SMJxy6qewT35ZW8tJ8jGJLzEDvDCpW6MHlp78gsAdXj6QcAYIWH*DlBB73E6QUPABVQ!/b&bo=gAIkBaAFkAsBGaM!&rf=viewer_4&t=5" width="100%">
+        </td>
+        <td >
+          <img src="http://m.qpic.cn/psc?/V14dALyK4PrHuj/TmEUgtj9EK6.7V8ajmQrENPJuk*SWGwtGl85IRDTqyo3oPYnOESVaA6SlDHLMFOVT7OPGwGnqRea.VRUGLKjiWwLkMASrzL7VVBneQo.Ln0!/b&bo=gAIkBaAFkAsBGaM!&rf=viewer_4&t=5" width="100%">
+        </td>
+        <td >
+          <img src="http://m.qpic.cn/psc?/V14dALyK4PrHuj/TmEUgtj9EK6.7V8ajmQrEBIKuY7Uj6O0Po6l4zAzzz4cS0yvzyj9piGMHeEGOx*JlcSbKlShBccuRpt0fAgbwZNM*Nu6IpTv18d.x8JaDAo!/b&bo=gAIkBaAFkAsBGaM!&rf=viewer_4&t=5" width="100%">
+        </td>
+    </tr>
+</table>
