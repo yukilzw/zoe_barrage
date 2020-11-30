@@ -26,7 +26,8 @@
 
 ### APP效果预览
 IPhone运行时录屏：<a href="https://www.bilibili.com/video/BV1Mp4y1z7ud" target="_blank">戳这里观看</a><br/>
-<img src="http://m.qpic.cn/psc?/V14dALyK4PrHuj/bqQfVz5yrrGYSXMvKr.cqRWgP*JgXGKstMK3KwLgWZjVark8S3dUOrTMFksNBRdJgJ2OTAnRSgTlGsJSnsa4iRyx088Z9SnBw8dM5CK6mE4!/b&bo=iwLCAosCwgIDCSw!&rf=viewer_4&t=5" alt="android & ios ScreenShot">
+<img src="http://m.qpic.cn/psc?/V14dALyK4PrHuj/bqQfVz5yrrGYSXMvKr.cqRWgP*JgXGKstMK3KwLgWZjVark8S3dUOrTMFksNBRdJgJ2OTAnRSgTlGsJSnsa4iRyx088Z9SnBw8dM5CK6mE4!/b&bo=iwLCAosCwgIDCSw!&rf=viewer_4&t=5" alt="android & ios ScreenShot" />
+
 <table>
     <tr>
         <td >
