@@ -22,7 +22,7 @@
   - `python ./py/2.discern.py`
   - `python ./py/3.translate.py`
   
-完整实现教程可见文章：<a href="https://www.jianshu.com/p/716ea7714b47" target="_blank">Flutter AI 智能弹幕播放器 — 简书·心动音符</a>
+完整实现教程可见文章：<a href="https://www.jianshu.com/p/716ea7714b47" target="_blank">《跨平台AI弹幕播放器》</a>
 
 ### APP效果预览
 IPhone运行时录屏：<a href="https://www.bilibili.com/video/BV1Mp4y1z7ud" target="_blank">戳这里观看</a><br/>
