@@ -1,10 +1,10 @@
 <p align="center"><a href="#" target="_blank" rel="noopener noreferrer"><img width="105" src="http://r.photo.store.qq.com/psc?/V14dALyK4PrHuj/TmEUgtj9EK6.7V8ajmQrEJjVNABJacrVJUfgSDskiqvyNC8.yNw6GHeAqOtYaJjfzIK.mW9H0QV3xdNFUbiEV.bzUGFq9lM3rOSiHpwJv4c!/r" alt="Zoe barrage"></a></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/flutter-1.22-52c6f9.svg?sanitize=true" alt="Build Status">
-  <img src="https://img.shields.io/badge/python-3.8-407daf.svg?sanitize=true" alt="Coverage Status">
-  <img src="https://img.shields.io/badge/android✔-brightgreen.svg?sanitize=true" alt="Downloads">
-  <img src="https://img.shields.io/badge/ios✔-green.svg?sanitize=true" alt="Version">
+  <img src="https://img.shields.io/badge/flutter-1.22-52c6f9.svg?sanitize=true" alt="flutter 1.22">
+  <img src="https://img.shields.io/badge/python-3.8-407daf.svg?sanitize=true" alt="python 3.8">
+  <img src="https://img.shields.io/badge/android✔-brightgreen.svg?sanitize=true" alt="android">
+  <img src="https://img.shields.io/badge/ios✔-green.svg?sanitize=true" alt="ios">
 </p>
 
 <h2 align="center">Flutter~Python AI弹幕播放器来袭！</h2>
